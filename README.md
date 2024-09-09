@@ -1,6 +1,8 @@
 # Days Until You Turn 25 ⏳🎉
 
 This project was created to remind you of how much time you have left before you turn 25, with a touch of motivation to keep you inspired. It features a countdown timer that shows the remaining days, hours, minutes, and seconds until your 25th birthday. Additionally, it provides a motivational quote to encourage you along the way.
+![image](https://github.com/user-attachments/assets/ff05b3ea-0ff4-4331-bf01-be5ef2a5a4bc)
+
 
 ## Motivation
 
