@@ -1,0 +1,95 @@
+/* Apply a gradient background to the entire page */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f8b500, #ec3750);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #fff;
+}
+
+/* Style the container */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Style the heading */
+h1 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* Style the input field */
+input {
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    width: 80%;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Add focus effect to input */
+input:focus {
+    outline: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the button */
+button {
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add hover effect to the button */
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the result text */
+p {
+    font-size: 18px;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    input {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+    }
+}
+/* Style the quote text */
+#quote {
+    font-size: 16px;
+    margin-top: 20px;
+    font-style: italic;
+    color: #ffdd57;
+    transition: opacity 0.3s ease;
+}
