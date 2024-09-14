@@ -1,9 +1,8 @@
 function calculateTimeLeft() {
-    const ageInput = document.getElementById('age').value;
+    const dobInput = document.getElementById('dob').value;
     const resultElement = document.getElementById('result');
     const quoteElement = document.getElementById('quote');
 
-    // Array of motivational quotes
     const quotes = [
         "Believe you can and you're halfway there.",
         "The future depends on what you do today.",
@@ -15,54 +14,46 @@ function calculateTimeLeft() {
         "The harder you work for something, the greater you'll feel when you achieve it."
     ];
 
-    // Check if the input is valid
-    if (ageInput === '' || ageInput < 0 || ageInput > 25) {
-        resultElement.textContent = 'Please enter a valid age between 0 and 25.';
-        quoteElement.textContent = ''; // Clear any previous quote
+    if (!dobInput) {
+        resultElement.textContent = 'Please enter your Date of Birth.';
+        quoteElement.textContent = '';
         return;
     }
 
+    const dob = new Date(dobInput);
     const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const targetAge = 25;
-    const yearsLeft = targetAge - ageInput;
+
+    // Calculate the date when the user will turn 25
+    const twentyFifthBirthday = new Date(dob.getFullYear() + 25, dob.getMonth(), dob.getDate());
 
     // If the user is already 25 or older
-    if (yearsLeft <= 0) {
+    if (currentDate >= twentyFifthBirthday) {
         resultElement.textContent = 'You are already 25 or older!';
-        quoteElement.textContent = ''; // Clear any previous quote
+        quoteElement.textContent = '';
         return;
     }
 
-    // Calculate the future date when the user will turn 25
-    const futureDate = new Date(currentYear + yearsLeft, currentDate.getMonth(), currentDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds());
-    
     function updateCountdown() {
         const now = new Date();
-        const timeDifference = futureDate.getTime() - now.getTime();
+        const timeDifference = twentyFifthBirthday.getTime() - now.getTime();
 
-        // Calculate days, hours, minutes, and seconds
         const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
         const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-        // Display the result
         resultElement.textContent = `You have ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, and ${secondsLeft} seconds left until you turn 25.`;
 
-        // Update the countdown every second
         if (timeDifference > 0) {
             setTimeout(updateCountdown, 1000);
         } else {
             resultElement.textContent = 'Congratulations! You are now 25 years old!';
-            quoteElement.textContent = ''; // Clear the quote as they reach 25
+            quoteElement.textContent = '';
         }
     }
 
-    // Display a random motivational quote only once per click
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     quoteElement.textContent = `"${randomQuote}"`;
 
-    // Start the countdown
     updateCountdown();
 }

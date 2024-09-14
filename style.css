@@ -1,4 +1,3 @@
-/* Apply a gradient background to the entire page */
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f8b500, #ec3750);
@@ -10,7 +9,6 @@ body {
     color: #fff;
 }
 
-/* Style the container */
 .container {
     background: rgba(255, 255, 255, 0.1);
     padding: 30px;
@@ -22,7 +20,6 @@ body {
     width: 100%;
 }
 
-/* Style the heading */
 h1 {
     color: #fff;
     font-size: 24px;
@@ -30,7 +27,6 @@ h1 {
     letter-spacing: 1px;
 }
 
-/* Style the input field */
 input {
     text-align: center;
     padding: 15px;
@@ -43,13 +39,11 @@ input {
     transition: box-shadow 0.3s ease;
 }
 
-/* Add focus effect to input */
 input:focus {
     outline: none;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the button */
 button {
     padding: 15px 30px;
     font-size: 16px;
@@ -62,31 +56,27 @@ button {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Add hover effect to the button */
 button:hover {
     background-color: #0056b3;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the result text */
 p {
     font-size: 18px;
     color: #fff;
     margin-top: 20px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 480px) {
     input {
         width: 100%;
     }
-
     button {
         width: 100%;
         padding: 15px;
     }
 }
-/* Style the quote text */
+
 #quote {
     font-size: 16px;
     margin-top: 20px;
