@@ -1,3 +1,5 @@
+let countdownTimeout; // Declare a variable to store the timeout ID
+
 function calculateTimeLeft() {
     const dobInput = document.getElementById('dob').value;
     const resultElement = document.getElementById('result');
@@ -13,6 +15,11 @@ function calculateTimeLeft() {
         "Don't be afraid to give up the good to go for the great.",
         "The harder you work for something, the greater you'll feel when you achieve it."
     ];
+
+    // Clear any existing countdown
+    if (countdownTimeout) {
+        clearTimeout(countdownTimeout);
+    }
 
     if (!dobInput) {
         resultElement.textContent = 'Please enter your Date of Birth.';
@@ -45,7 +52,7 @@ function calculateTimeLeft() {
         resultElement.textContent = `You have ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, and ${secondsLeft} seconds left until you turn 25.`;
 
         if (timeDifference > 0) {
-            setTimeout(updateCountdown, 1000);
+            countdownTimeout = setTimeout(updateCountdown, 1000);
         } else {
             resultElement.textContent = 'Congratulations! You are now 25 years old!';
             quoteElement.textContent = '';
