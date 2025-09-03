@@ -125,18 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const linkedinBtn = document.getElementById('linkedin-btn');
     const container = document.querySelector('.container');
 
-    shareButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        shareMenu.classList.toggle('hidden');
-    });
-
-    downloadBtn.addEventListener('click', () => {
-        html2canvas(container, {
-            backgroundColor: getComputedStyle(document.body).backgroundColor, // Ensure background matches
-            onclone: (document) => {
-                // Hide the share button and menu in the clone
-                document.getElementById('share-button').style.visibility = 'hidden';
-                document.getElementById('share-menu').style.visibility = 'hidden';
+    const downloadScreenshot = () => {
+        return html2canvas(container, {
+            backgroundColor: getComputedStyle(document.body).backgroundColor,
+            onclone: (doc) => {
+                doc.getElementById('share-button').style.visibility = 'hidden';
+                doc.getElementById('share-menu').style.visibility = 'hidden';
             }
         }).then(canvas => {
             const link = document.createElement('a');
@@ -144,21 +138,34 @@ document.addEventListener('DOMContentLoaded', () => {
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
+    };
+
+    shareButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        shareMenu.classList.toggle('hidden');
+    });
+
+    downloadBtn.addEventListener('click', () => {
+        downloadScreenshot();
         shareMenu.classList.add('hidden');
     });
 
-    const appUrl = "https://example.com/time-until-25"; // Placeholder URL
-    const shareText = "Check out my countdown to 25!";
+    const appUrl = "https://days-until-25.vercel.app/";
+    const shareText = "Check out my countdown to 25! #DaysUntil25";
 
     tweetBtn.addEventListener('click', () => {
-        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(shareText)}`;
-        window.open(twitterUrl, '_blank');
+        downloadScreenshot().then(() => {
+            const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(shareText)}`;
+            window.open(twitterUrl, '_blank');
+        });
         shareMenu.classList.add('hidden');
     });
 
     linkedinBtn.addEventListener('click', () => {
-        const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(appUrl)}&title=${encodeURIComponent(shareText)}`;
-        window.open(linkedinUrl, '_blank');
+        downloadScreenshot().then(() => {
+            const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(appUrl)}&title=${encodeURIComponent(shareText)}`;
+            window.open(linkedinUrl, '_blank');
+        });
         shareMenu.classList.add('hidden');
     });
 
