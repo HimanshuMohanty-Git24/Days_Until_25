@@ -1,6 +1,6 @@
 # Days Until You Turn 25 ⏳🎉
 
-**Calculate how much time I have left before I hit 25 - grind hard bro!!**
+**Calculate how much time you have left before you hit 25 - grind hard bro!!**
 
 This sleek countdown timer shows you exactly how many days, hours, minutes, and seconds remain until your 25th birthday. Perfect for staying motivated and making every moment count before the big 2-5! Features inspirational quotes, dark/light theme toggle, and social sharing capabilities.
 
