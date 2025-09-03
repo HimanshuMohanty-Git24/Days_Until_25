@@ -116,4 +116,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial state
     document.getElementById('countdown').style.display = 'none';
+
+    // --- SHARE LOGIC ---
+    const shareButton = document.getElementById('share-button');
+    const shareMenu = document.getElementById('share-menu');
+    const downloadBtn = document.getElementById('download-btn');
+    const tweetBtn = document.getElementById('tweet-btn');
+    const linkedinBtn = document.getElementById('linkedin-btn');
+    const container = document.querySelector('.container');
+
+    shareButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        shareMenu.classList.toggle('hidden');
+    });
+
+    downloadBtn.addEventListener('click', () => {
+        html2canvas(container, {
+            backgroundColor: getComputedStyle(document.body).backgroundColor, // Ensure background matches
+            onclone: (document) => {
+                // Hide the share button and menu in the clone
+                document.getElementById('share-button').style.visibility = 'hidden';
+                document.getElementById('share-menu').style.visibility = 'hidden';
+            }
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'time-until-25.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+        shareMenu.classList.add('hidden');
+    });
+
+    const appUrl = "https://example.com/time-until-25"; // Placeholder URL
+    const shareText = "Check out my countdown to 25!";
+
+    tweetBtn.addEventListener('click', () => {
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(shareText)}`;
+        window.open(twitterUrl, '_blank');
+        shareMenu.classList.add('hidden');
+    });
+
+    linkedinBtn.addEventListener('click', () => {
+        const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(appUrl)}&title=${encodeURIComponent(shareText)}`;
+        window.open(linkedinUrl, '_blank');
+        shareMenu.classList.add('hidden');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!shareMenu.contains(e.target) && !shareButton.contains(e.target)) {
+            shareMenu.classList.add('hidden');
+        }
+    });
 });
