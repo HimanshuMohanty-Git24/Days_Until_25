@@ -1,9 +1,17 @@
-let countdownTimeout; // Declare a variable to store the timeout ID
+document.getElementById('dob').addEventListener('change', calculateTimeLeft);
+
+let countdownInterval;
 
 function calculateTimeLeft() {
     const dobInput = document.getElementById('dob').value;
-    const resultElement = document.getElementById('result');
+    const resultMessageElement = document.getElementById('result-message');
     const quoteElement = document.getElementById('quote');
+    const countdownContainer = document.getElementById('countdown');
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
 
     const quotes = [
         "Believe you can and you're halfway there.",
@@ -16,51 +24,66 @@ function calculateTimeLeft() {
         "The harder you work for something, the greater you'll feel when you achieve it."
     ];
 
-    // Clear any existing countdown
-    if (countdownTimeout) {
-        clearTimeout(countdownTimeout);
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
     }
 
     if (!dobInput) {
-        resultElement.textContent = 'Please enter your Date of Birth.';
+        resultMessageElement.textContent = 'Please enter your Date of Birth.';
         quoteElement.textContent = '';
+        quoteElement.style.opacity = 0;
+        countdownContainer.style.display = 'none';
         return;
     }
 
     const dob = new Date(dobInput);
-    const currentDate = new Date();
-
-    // Calculate the date when the user will turn 25
     const twentyFifthBirthday = new Date(dob.getFullYear() + 25, dob.getMonth(), dob.getDate());
+    const now = new Date();
 
-    // If the user is already 25 or older
-    if (currentDate >= twentyFifthBirthday) {
-        resultElement.textContent = 'You are already 25 or older!';
+    if (now >= twentyFifthBirthday) {
+        resultMessageElement.textContent = 'You are already 25 or older!';
         quoteElement.textContent = '';
+        quoteElement.style.opacity = 0;
+        countdownContainer.style.display = 'none';
         return;
     }
+
+    resultMessageElement.textContent = '';
+    countdownContainer.style.display = 'flex';
 
     function updateCountdown() {
         const now = new Date();
         const timeDifference = twentyFifthBirthday.getTime() - now.getTime();
+
+        if (timeDifference <= 0) {
+            resultMessageElement.textContent = 'Congratulations! You are now 25 years old!';
+            quoteElement.textContent = '';
+            quoteElement.style.opacity = 0;
+            countdownContainer.style.display = 'none';
+            clearInterval(countdownInterval);
+            return;
+        }
 
         const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
         const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-        resultElement.textContent = `You have ${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, and ${secondsLeft} seconds left until you turn 25.`;
-
-        if (timeDifference > 0) {
-            countdownTimeout = setTimeout(updateCountdown, 1000);
-        } else {
-            resultElement.textContent = 'Congratulations! You are now 25 years old!';
-            quoteElement.textContent = '';
-        }
+        daysEl.textContent = daysLeft;
+        hoursEl.textContent = hoursLeft;
+        minutesEl.textContent = minutesLeft;
+        secondsEl.textContent = secondsLeft;
     }
 
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     quoteElement.textContent = `"${randomQuote}"`;
+    quoteElement.style.opacity = 1;
 
     updateCountdown();
+    countdownInterval = setInterval(updateCountdown, 1000);
 }
+
+// Initial state
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('countdown').style.display = 'none';
+});

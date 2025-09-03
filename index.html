@@ -4,17 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Until 25</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
     <div class="container">
         <h1>Time Until You Turn 25</h1>
-        <label for="dob">Enter your Date of Birth:</label>
-        <input type="date" id="dob">
-        <button onclick="calculateTimeLeft()">Calculate</button>
-        <p id="result"></p>
+        <div class="input-container">
+            <label for="dob">Enter your Date of Birth:</label>
+            <input type="date" id="dob">
+        </div>
+        <div id="countdown" class="countdown-container">
+            <div class="time-card">
+                <span id="days">0</span>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-card">
+                <span id="hours">0</span>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-card">
+                <span id="minutes">0</span>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="time-card">
+                <span id="seconds">0</span>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+        <p id="result-message"></p>
         <p id="quote"></p>
     </div>
     <script src="./script.js"></script>

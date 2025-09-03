@@ -1,86 +1,141 @@
+:root {
+    --primary-color: #8e44ad;
+    --secondary-color: #9b59b6;
+    --background-color: #f4f4f9;
+    --text-color: #333;
+    --card-bg-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --quote-color: #e74c3c;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f8b500, #ec3750);
+    background-color: var(--background-color);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    color: #fff;
+    color: var(--text-color);
+    text-align: center;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
+    background: var(--card-bg-color);
+    padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    backdrop-filter: blur(10px);
-    max-width: 400px;
-    width: 100%;
+    box-shadow: 0 15px 35px var(--shadow-color);
+    max-width: 600px;
+    width: 90%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px var(--shadow-color);
 }
 
 h1 {
-    color: #fff;
-    font-size: 24px;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-weight: 600;
 }
 
-input {
-    text-align: center;
+.input-container {
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+
+input[type="date"] {
     padding: 15px;
     font-size: 16px;
     border-radius: 10px;
-    border: none;
+    border: 2px solid #ddd;
     width: 80%;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    max-width: 300px;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-input:focus {
+input[type="date"]:focus {
     outline: none;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(142, 68, 173, 0.2);
 }
 
-button {
-    padding: 15px 30px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: none;
-    background-color: #007bff;
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.time-card {
+    background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
     color: white;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    border-radius: 15px;
+    min-width: 100px;
+    box-shadow: 0 10px 20px rgba(142, 68, 173, 0.2);
+    transition: transform 0.3s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+.time-card:hover {
+    transform: translateY(-5px);
 }
 
-p {
+.time-card span {
+    display: block;
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.time-card .label {
+    font-size: 16px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#result-message {
     font-size: 18px;
-    color: #fff;
-    margin-top: 20px;
-}
-
-@media (max-width: 480px) {
-    input {
-        width: 100%;
-    }
-    button {
-        width: 100%;
-        padding: 15px;
-    }
+    font-weight: 400;
+    color: var(--primary-color);
 }
 
 #quote {
-    font-size: 16px;
+    font-size: 18px;
     margin-top: 20px;
     font-style: italic;
-    color: #ffdd57;
-    transition: opacity 0.3s ease;
+    color: var(--quote-color);
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    min-height: 25px;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 30px;
+    }
+    .countdown-container {
+        gap: 15px;
+    }
+    .time-card {
+        min-width: 80px;
+        padding: 15px;
+    }
+    .time-card span {
+        font-size: 36px;
+    }
+    h1 {
+        font-size: 24px;
+    }
 }
