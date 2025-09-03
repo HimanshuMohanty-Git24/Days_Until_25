@@ -154,18 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const shareText = "Check out my countdown to 25! #DaysUntil25";
 
     tweetBtn.addEventListener('click', () => {
-        downloadScreenshot().then(() => {
-            const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(shareText)}`;
-            window.open(twitterUrl, '_blank');
-        });
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(appUrl)}&text=${encodeURIComponent(shareText)}`;
+        window.open(twitterUrl, '_blank');
         shareMenu.classList.add('hidden');
     });
 
     linkedinBtn.addEventListener('click', () => {
-        downloadScreenshot().then(() => {
-            const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(appUrl)}&title=${encodeURIComponent(shareText)}`;
-            window.open(linkedinUrl, '_blank');
-        });
+        const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(appUrl)}&title=${encodeURIComponent(shareText)}`;
+        window.open(linkedinUrl, '_blank');
         shareMenu.classList.add('hidden');
     });
 
