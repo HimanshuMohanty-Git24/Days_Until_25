@@ -5,15 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Until 25</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
     <div class="container">
+        <div class="theme-switcher">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle"><span></span></label>
+        </div>
         <h1>Time Until You Turn 25</h1>
         <div class="input-container">
             <label for="dob">Enter your Date of Birth:</label>
-            <input type="date" id="dob">
+            <input type="text" id="dob" placeholder="Select your birth date...">
         </div>
         <div id="countdown" class="countdown-container">
             <div class="time-card">
@@ -36,6 +41,7 @@
         <p id="result-message"></p>
         <p id="quote"></p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="./script.js"></script>
 </body>
 </html>

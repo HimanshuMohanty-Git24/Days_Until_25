@@ -1,89 +1,119 @@
-document.getElementById('dob').addEventListener('change', calculateTimeLeft);
+document.addEventListener('DOMContentLoaded', () => {
+    const dobInput = document.getElementById('dob');
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
 
-let countdownInterval;
+    // --- THEME LOGIC ---
+    const applyTheme = (theme) => {
+        body.setAttribute('data-theme', theme);
+        themeToggle.checked = theme === 'dark';
+        localStorage.setItem('theme', theme);
+    };
 
-function calculateTimeLeft() {
-    const dobInput = document.getElementById('dob').value;
-    const resultMessageElement = document.getElementById('result-message');
-    const quoteElement = document.getElementById('quote');
-    const countdownContainer = document.getElementById('countdown');
+    themeToggle.addEventListener('change', (e) => {
+        const newTheme = e.target.checked ? 'dark' : 'light';
+        applyTheme(newTheme);
+    });
 
-    const daysEl = document.getElementById('days');
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    applyTheme(initialTheme);
 
-    const quotes = [
-        "Believe you can and you're halfway there.",
-        "The future depends on what you do today.",
-        "Don't watch the clock; do what it does. Keep going.",
-        "The only way to do great work is to love what you do.",
-        "Your time is limited, don't waste it living someone else's life.",
-        "Success is not final, failure is not fatal: It is the courage to continue that counts.",
-        "Don't be afraid to give up the good to go for the great.",
-        "The harder you work for something, the greater you'll feel when you achieve it."
-    ];
+    // --- FLATPICKR INITIALIZATION ---
+    flatpickr(dobInput, {
+        dateFormat: "F j, Y",
+        maxDate: "today",
+        onChange: function(selectedDates, dateStr, instance) {
+            calculateTimeLeft();
+        }
+    });
 
-    if (countdownInterval) {
-        clearInterval(countdownInterval);
-    }
 
-    if (!dobInput) {
-        resultMessageElement.textContent = 'Please enter your Date of Birth.';
-        quoteElement.textContent = '';
-        quoteElement.style.opacity = 0;
-        countdownContainer.style.display = 'none';
-        return;
-    }
+    // --- COUNTDOWN LOGIC ---
+    let countdownInterval;
 
-    const dob = new Date(dobInput);
-    const twentyFifthBirthday = new Date(dob.getFullYear() + 25, dob.getMonth(), dob.getDate());
-    const now = new Date();
+    function calculateTimeLeft() {
+        const dobValue = dobInput.value;
+        const resultMessageElement = document.getElementById('result-message');
+        const quoteElement = document.getElementById('quote');
+        const countdownContainer = document.getElementById('countdown');
 
-    if (now >= twentyFifthBirthday) {
-        resultMessageElement.textContent = 'You are already 25 or older!';
-        quoteElement.textContent = '';
-        quoteElement.style.opacity = 0;
-        countdownContainer.style.display = 'none';
-        return;
-    }
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
 
-    resultMessageElement.textContent = '';
-    countdownContainer.style.display = 'flex';
+        const quotes = [
+            "Believe you can and you're halfway there.",
+            "The future depends on what you do today.",
+            "Don't watch the clock; do what it does. Keep going.",
+            "The only way to do great work is to love what you do.",
+            "Your time is limited, don't waste it living someone else's life.",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+            "Don't be afraid to give up the good to go for the great.",
+            "The harder you work for something, the greater you'll feel when you achieve it."
+        ];
 
-    function updateCountdown() {
-        const now = new Date();
-        const timeDifference = twentyFifthBirthday.getTime() - now.getTime();
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+        }
 
-        if (timeDifference <= 0) {
-            resultMessageElement.textContent = 'Congratulations! You are now 25 years old!';
+        if (!dobValue) {
+            resultMessageElement.textContent = 'Please enter your Date of Birth.';
             quoteElement.textContent = '';
             quoteElement.style.opacity = 0;
             countdownContainer.style.display = 'none';
-            clearInterval(countdownInterval);
             return;
         }
 
-        const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-        const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+        const dob = new Date(dobValue);
+        const twentyFifthBirthday = new Date(dob.getFullYear() + 25, dob.getMonth(), dob.getDate());
+        const now = new Date();
 
-        daysEl.textContent = daysLeft;
-        hoursEl.textContent = hoursLeft;
-        minutesEl.textContent = minutesLeft;
-        secondsEl.textContent = secondsLeft;
+        if (now >= twentyFifthBirthday) {
+            resultMessageElement.textContent = 'You are already 25 or older!';
+            quoteElement.textContent = '';
+            quoteElement.style.opacity = 0;
+            countdownContainer.style.display = 'none';
+            return;
+        }
+
+        resultMessageElement.textContent = '';
+        countdownContainer.style.display = 'flex';
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeDifference = twentyFifthBirthday.getTime() - now.getTime();
+
+            if (timeDifference <= 0) {
+                resultMessageElement.textContent = 'Congratulations! You are now 25 years old!';
+                quoteElement.textContent = '';
+                quoteElement.style.opacity = 0;
+                countdownContainer.style.display = 'none';
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            daysEl.textContent = daysLeft;
+            hoursEl.textContent = hoursLeft;
+            minutesEl.textContent = minutesLeft;
+            secondsEl.textContent = secondsLeft;
+        }
+
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteElement.textContent = `"${randomQuote}"`;
+        quoteElement.style.opacity = 1;
+
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
     }
 
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    quoteElement.textContent = `"${randomQuote}"`;
-    quoteElement.style.opacity = 1;
-
-    updateCountdown();
-    countdownInterval = setInterval(updateCountdown, 1000);
-}
-
-// Initial state
-document.addEventListener('DOMContentLoaded', () => {
+    // Initial state
     document.getElementById('countdown').style.display = 'none';
 });
